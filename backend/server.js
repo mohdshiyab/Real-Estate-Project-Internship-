@@ -10,7 +10,16 @@ const inquiryRoutes = require("./routes/inquiryRoutes");
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || "*" }));
+// Allow all origins dynamically (supports Vercel, localhost, and custom domains)
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+app.options("*", cors()); // Enable pre-flight for all routes
 app.use(express.json({ limit: "2mb" }));
 app.use(morgan("dev"));
 
