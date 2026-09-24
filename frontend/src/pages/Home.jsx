@@ -66,7 +66,7 @@ export default function Home() {
               <FiStar /> Curated Since 2010
             </span>
             <h1 className="text-5xl md:text-7xl leading-[1.05] mb-6">
-              Where <span className="gold-text italic">extraordinary</span><br />
+              Where <span className="text-red-500 italic">extraordinary</span><br />
               residences find their owners.
             </h1>
             <p className="text-lg text-white/75 max-w-xl mb-10">
