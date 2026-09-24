@@ -6,6 +6,10 @@ Aurum Estates caters to both **Dealers / Sellers** looking to list exclusive res
 
 📂 **GitHub Repository:** [https://github.com/mohdshiyab/Real-Estate-Project-Internship-](https://github.com/mohdshiyab/Real-Estate-Project-Internship-)
 
+🌐 **Live Application (Frontend):** [https://real-estate-project-internship.vercel.app](https://real-estate-project-internship.vercel.app)
+
+🚀 **Live API (Backend):** [https://aurum-estates-api.onrender.com](https://aurum-estates-api.onrender.com)
+
 ---
 
 ## ✨ Core Features & Workflows

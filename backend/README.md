@@ -2,6 +2,8 @@
 
 High-performance REST API for the Aurum Estates real estate platform. Pairs with the React + Vite frontend.
 
+🚀 **Live API:** [https://aurum-estates-api.onrender.com](https://aurum-estates-api.onrender.com)
+
 ## Stack
 - Node.js & Express.js
 - MongoDB Atlas / Mongoose
