@@ -5,6 +5,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const connectDB = require("./config/db");
 const propertyRoutes = require("./routes/propertyRoutes");
+const authRoutes = require("./routes/authRoutes");
+const inquiryRoutes = require("./routes/inquiryRoutes");
 
 const app = express();
 
@@ -16,7 +18,9 @@ app.use(morgan("dev"));
 app.get("/", (_req, res) => res.json({ ok: true, service: "Aurum Estates API" }));
 
 // Routes
+app.use("/api/auth", authRoutes);
 app.use("/api/properties", propertyRoutes);
+app.use("/api/inquiries", inquiryRoutes);
 
 // 404
 app.use((_req, res) => res.status(404).json({ message: "Route not found" }));

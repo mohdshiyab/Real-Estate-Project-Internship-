@@ -4,24 +4,44 @@ import { toast } from "react-toastify";
 import PropertyForm from "../components/PropertyForm";
 import { Spinner } from "../components/Loader";
 import { getProperty, updateProperty } from "../services/propertyService";
+import { useAuth } from "../context/AuthContext";
 
 export default function EditProperty() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user, isSeller } = useAuth();
   const [initial, setInitial] = useState(null);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    if (!user) {
+      navigate(`/login?redirect=/edit/${id}`);
+      return;
+    }
+
     getProperty(id)
-      .then(setInitial)
-      .catch((e) => { toast.error(e.message); navigate("/properties"); });
-  }, [id, navigate]);
+      .then((data) => {
+        // Verify owner permissions if property has an owner
+        const ownerId = data.owner?._id || data.owner;
+        const currentUserId = user._id || user.id;
+        if (ownerId && currentUserId && ownerId.toString() !== currentUserId.toString()) {
+          toast.error("You are not authorized to edit this listing");
+          navigate(`/properties/${id}`);
+          return;
+        }
+        setInitial(data);
+      })
+      .catch((e) => {
+        toast.error(e.message);
+        navigate("/properties");
+      });
+  }, [id, user, navigate]);
 
   const handle = async (data) => {
     setSubmitting(true);
     try {
       await updateProperty(id, data);
-      toast.success("Property updated");
+      toast.success("Property updated successfully");
       navigate(`/properties/${id}`);
     } catch (e) {
       toast.error(e.message);

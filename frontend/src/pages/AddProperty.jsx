@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import PropertyForm from "../components/PropertyForm";
 import { createProperty } from "../services/propertyService";
+import { useAuth } from "../context/AuthContext";
 
 export default function AddProperty() {
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { user, isSeller } = useAuth();
+
+  useEffect(() => {
+    if (!user) {
+      toast.info("Please sign in as a Seller / Dealer to list a property.");
+      navigate("/login?redirect=/add");
+    } else if (!isSeller) {
+      toast.error("Only registered Sellers / Dealers can list properties. Please sign up or switch to a Seller account.");
+      navigate("/register?role=seller&redirect=/add");
+    }
+  }, [user, isSeller, navigate]);
 
   const handle = async (data) => {
     setSubmitting(true);

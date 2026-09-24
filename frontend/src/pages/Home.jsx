@@ -66,11 +66,11 @@ export default function Home() {
               <FiStar /> Curated Since 2010
             </span>
             <h1 className="text-5xl md:text-7xl leading-[1.05] mb-6">
-              Where <span className="text-red-500 italic">extraordinary</span><br />
-              residences find their owners.
+              Where <span className="gold-text italic">extraordinary</span><br />
+              estates find their owners.
             </h1>
             <p className="text-lg text-white/75 max-w-xl mb-10">
-              A discreet collection of villas, penthouses and historic estates curated for the world's most discerning collectors.
+              A discreet global portfolio of villas, private islands, vineyard estates, and prime land curated for the world's most discerning collectors.
             </p>
 
             <form onSubmit={onSearch} className="glass-gold p-2 flex flex-col sm:flex-row gap-2 max-w-2xl">
@@ -78,7 +78,7 @@ export default function Home() {
                 <FiSearch className="text-gold text-lg shrink-0" />
                 <input
                   value={q} onChange={(e) => setQ(e.target.value)}
-                  placeholder="Search by location, type, or keyword…"
+                  placeholder="Search by location, estate type, or keyword…"
                   className="bg-transparent w-full py-3 outline-none placeholder-white/40"
                 />
               </div>
@@ -89,7 +89,8 @@ export default function Home() {
 
             <div className="flex flex-wrap gap-4 mt-10">
               <Link to="/properties" className="btn-outline">Browse Collection</Link>
-              <Link to="/add" className="btn-ghost">List Your Property <FiArrowRight /></Link>
+              <Link to="/properties?category=land" className="btn-ghost">🏝️ Explore Land & Islands</Link>
+              <Link to="/add" className="btn-ghost">List Your Estate <FiArrowRight /></Link>
             </div>
           </motion.div>
         </div>
@@ -107,6 +108,71 @@ export default function Home() {
               <div className="text-xs uppercase tracking-[0.2em] text-white/60 mt-2">{s.label}</div>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* ESTATE CATEGORIES SHOWCASE */}
+      <section className="section pt-24">
+        <div className="text-center mb-12">
+          <div className="divider-gold mx-auto mb-4" />
+          <h2 className="text-4xl md:text-5xl">Explore by <span className="gold-text italic">Estate Portfolio</span></h2>
+          <p className="text-white/60 mt-3 max-w-lg mx-auto">From coastal residences to private islands and agricultural holdings.</p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          <Link
+            to="/properties?category=residential"
+            className="group glass p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all duration-500 flex flex-col justify-between"
+          >
+            <div>
+              <div className="w-14 h-14 rounded-2xl bg-gold/10 border border-gold/30 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
+                🏰
+              </div>
+              <h3 className="font-display text-2xl mb-2 group-hover:text-gold transition">Luxury Residences</h3>
+              <p className="text-white/60 text-sm leading-relaxed mb-6">
+                Private villas, penthouses, waterfront houses, and architectural landmarks in premier global destinations.
+              </p>
+            </div>
+            <div className="text-xs uppercase tracking-wider text-gold flex items-center gap-1 font-semibold">
+              Browse Residences <FiArrowRight className="group-hover:translate-x-1 transition" />
+            </div>
+          </Link>
+
+          <Link
+            to="/properties?category=land"
+            className="group glass-gold p-8 rounded-3xl border border-gold/40 hover:border-gold transition-all duration-500 flex flex-col justify-between"
+          >
+            <div>
+              <div className="w-14 h-14 rounded-2xl bg-gold/20 border border-gold/40 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
+                🏝️
+              </div>
+              <h3 className="font-display text-2xl mb-2 gold-text">Land & Private Islands</h3>
+              <p className="text-white/70 text-sm leading-relaxed mb-6">
+                Pristine private islands, viticultural vineyards, oceanfront development plots, and organic agricultural holdings.
+              </p>
+            </div>
+            <div className="text-xs uppercase tracking-wider text-gold flex items-center gap-1 font-semibold">
+              Browse Land & Islands <FiArrowRight className="group-hover:translate-x-1 transition" />
+            </div>
+          </Link>
+
+          <Link
+            to="/properties?category=commercial"
+            className="group glass p-8 rounded-3xl border border-white/10 hover:border-gold/50 transition-all duration-500 flex flex-col justify-between"
+          >
+            <div>
+              <div className="w-14 h-14 rounded-2xl bg-gold/10 border border-gold/30 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition">
+                🏢
+              </div>
+              <h3 className="font-display text-2xl mb-2 group-hover:text-gold transition">Commercial Assets</h3>
+              <p className="text-white/60 text-sm leading-relaxed mb-6">
+                Landmark office towers, boutique resorts, luxury hotels, and institutional commercial developments.
+              </p>
+            </div>
+            <div className="text-xs uppercase tracking-wider text-gold flex items-center gap-1 font-semibold">
+              Browse Commercial <FiArrowRight className="group-hover:translate-x-1 transition" />
+            </div>
+          </Link>
         </div>
       </section>
 

@@ -1,87 +1,89 @@
-# Aurum Estates — Backend (Express + MongoDB)
+# Aurum Estates — Backend API (Express + MongoDB)
 
-REST API for the Aurum Estates real estate platform. Pairs with the React frontend built in Lovable.
+High-performance REST API for the Aurum Estates real estate platform. Pairs with the React + Vite frontend.
 
 ## Stack
-- Node.js + Express
-- MongoDB (use **MongoDB Compass** for local viewing) + Mongoose
+- Node.js & Express.js
+- MongoDB Atlas / Mongoose
+- JWT (`jsonwebtoken`) & `bcryptjs`
 - CORS, dotenv, morgan
 
-## Folder structure
+## Directory Structure
 ```
 backend/
-├── config/db.js              # Mongoose connection
-├── controllers/              # Business logic
-│   └── propertyController.js
-├── models/Property.js        # Mongoose schema
-├── routes/propertyRoutes.js  # REST routes
-├── server.js                 # Entry point
-├── seed.js                   # Sample data
+├── config/
+│   └── db.js                 # Mongoose connection with Google DNS resolver fallback
+├── controllers/
+│   ├── authController.js     # User registration, login, and profile fetching
+│   ├── inquiryController.js  # Customer interest, seller leads & status updates
+│   └── propertyController.js # Multi-estate CRUD, filtering, sorting & ownership
+├── middleware/
+│   └── auth.js               # JWT verification & role authorization (protect, authorizeRoles)
+├── models/
+│   ├── Inquiry.js            # Customer inquiry tracking schema
+│   ├── Property.js           # Multi-estate schema (residential, land, commercial, GPS coordinates)
+│   └── User.js               # User authentication schema with bcrypt password hashing
+├── routes/
+│   ├── authRoutes.js         # /api/auth routes
+│   ├── inquiryRoutes.js      # /api/inquiries routes
+│   └── propertyRoutes.js     # /api/properties routes
+├── seed.js                   # Demo data seeder with properties, demo seller, demo buyer & inquiries
+├── server.js                 # Server entry point
 ├── .env.example
 └── package.json
 ```
 
-## Setup
+## Setup & Running
 
-1. **Install MongoDB locally** (or use MongoDB Compass to connect to a running instance)
-   - Default URI: `mongodb://127.0.0.1:27017/realestateDB`
-
-2. **Install dependencies**
+1. **Install dependencies**
    ```bash
-   cd backend
    npm install
    ```
 
-3. **Configure environment**
-   ```bash
-   cp .env.example .env
-   # edit if needed — defaults work with MongoDB Compass local
+2. **Configure environment (`.env`)**
+   ```env
+   PORT=5001
+   MONGO_URI=mongodb+srv://<username>:<password>@cluster0.1nxgtjt.mongodb.net/myDatabase?retryWrites=true&w=majority&appName=Cluster0
+   JWT_SECRET=aurum_estates_super_secret_jwt_key_2026
+   JWT_EXPIRES_IN=7d
+   CLIENT_ORIGIN=http://localhost:5173
    ```
 
-4. **(Optional) Seed sample data**
+3. **Seed database**
    ```bash
    npm run seed
    ```
 
-5. **Start the server**
+4. **Start development server**
    ```bash
-   npm start          # production
-   npm run dev        # with auto-reload (nodemon)
+   npm run dev
    ```
-   Server runs on `http://localhost:5000`.
+   API runs on `http://localhost:5001`.
 
-## Connecting the frontend
+## Demo Credentials
 
-In your Lovable project, set the env var:
-```
-VITE_API_URL=http://localhost:5000/api
-```
-The frontend automatically falls back to in-browser mock data if the backend is unreachable, so it always works.
+| Role | Email | Password |
+|---|---|---|
+| **Seller / Dealer** | `dealer@aurumestates.com` | `password123` |
+| **Buyer / Customer** | `buyer@aurumestates.com` | `password123` |
 
-## API endpoints
+## API Endpoints
 
-| Method | Path                      | Description                     |
-|--------|---------------------------|---------------------------------|
-| GET    | `/api/properties`         | List all (supports query filters: `q`, `type`, `status`, `minPrice`, `maxPrice`, `bedrooms`) |
-| GET    | `/api/properties/:id`     | Get one                         |
-| POST   | `/api/properties`         | Create                          |
-| PUT    | `/api/properties/:id`     | Update                          |
-| DELETE | `/api/properties/:id`     | Delete                          |
+### Authentication
+- `POST /api/auth/register` — Register as a Seller or Buyer
+- `POST /api/auth/login` — Sign in and obtain JWT
+- `GET /api/auth/me` — Get profile (Protected)
 
-### Property schema
-```js
-{
-  title, description, price, location,
-  propertyType: "Villa" | "Apartment" | "House" | "Penthouse" | "Studio" | "Land",
-  bedrooms, bathrooms, area,
-  status: "sale" | "rent",
-  image, contactNumber,
-  createdAt, updatedAt
-}
-```
+### Properties
+- `GET /api/properties` — Browse all estates (Filters: `q`, `category`, `type`, `status`, `minPrice`, `maxPrice`, `bedrooms`, `location`, `sort`)
+- `GET /api/properties/my-listings` — List only logged-in seller's properties (Protected, Seller only)
+- `GET /api/properties/:id` — Get one property
+- `POST /api/properties` — Create property with GPS coordinates & category (Protected, Seller only)
+- `PUT /api/properties/:id` — Update property (Protected, Owner only)
+- `DELETE /api/properties/:id` — Delete property (Protected, Owner only)
 
-## Viewing data in MongoDB Compass
-
-1. Open MongoDB Compass
-2. Connect to `mongodb://127.0.0.1:27017`
-3. Open the `realestateDB` database → `properties` collection
+### Inquiries & Leads
+- `POST /api/inquiries` — Express customer interest (Protected)
+- `GET /api/inquiries/seller` — Get inquiries for seller's properties (Protected, Seller only)
+- `GET /api/inquiries/buyer` — Get inquiries made by buyer (Protected)
+- `PATCH /api/inquiries/:id/status` — Update inquiry status (`pending`, `contacted`) (Protected, Seller only)
