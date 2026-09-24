@@ -186,10 +186,10 @@ export default function Properties() {
           onChange={(e) => setSort(e.target.value)}
           className="input-luxe md:w-56"
         >
-          <option value="newest">Newest First</option>
-          <option value="price-asc">Price: Low to High</option>
-          <option value="price-desc">Price: High to Low</option>
-          <option value="beds-desc">Most Bedrooms</option>
+          <option value="newest" className="bg-[#0b120f] text-white">Newest First</option>
+          <option value="price-asc" className="bg-[#0b120f] text-white">Price: Low to High</option>
+          <option value="price-desc" className="bg-[#0b120f] text-white">Price: High to Low</option>
+          <option value="beds-desc" className="bg-[#0b120f] text-white">Most Bedrooms</option>
         </select>
         <button
           onClick={() => setShowFilters((s) => !s)}
@@ -227,11 +227,11 @@ export default function Properties() {
               value={filters.type}
               onChange={(e) => update("type", e.target.value)}
             >
-              <option value="">Any Estate Type</option>
+              <option value="" className="bg-[#0b120f] text-white">Any Estate Type</option>
               {Object.entries(GROUPED_TYPES).map(([group, types]) => (
-                <optgroup key={group} label={group} className="bg-ink text-gold">
+                <optgroup key={group} label={group} className="bg-[#0b120f] text-gold">
                   {types.map((t) => (
-                    <option key={t} value={t} className="text-white">
+                    <option key={t} value={t} className="bg-[#0b120f] text-white">
                       {t}
                     </option>
                   ))}
@@ -246,9 +246,9 @@ export default function Properties() {
               value={filters.status}
               onChange={(e) => update("status", e.target.value)}
             >
-              <option value="">Any Status</option>
-              <option value="sale">For Sale / Acquisition</option>
-              <option value="rent">For Rent / Lease</option>
+              <option value="" className="bg-[#0b120f] text-white">Any Status</option>
+              <option value="sale" className="bg-[#0b120f] text-white">For Sale / Acquisition</option>
+              <option value="rent" className="bg-[#0b120f] text-white">For Rent / Lease</option>
             </select>
           </div>
           <div>
@@ -258,9 +258,9 @@ export default function Properties() {
               value={filters.bedrooms}
               onChange={(e) => update("bedrooms", e.target.value)}
             >
-              <option value="">Any</option>
+              <option value="" className="bg-[#0b120f] text-white">Any</option>
               {[1, 2, 3, 4, 5, 6].map((n) => (
-                <option key={n} value={n}>
+                <option key={n} value={n} className="bg-[#0b120f] text-white">
                   {n}+ Beds
                 </option>
               ))}

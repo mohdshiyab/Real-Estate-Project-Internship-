@@ -388,7 +388,7 @@ export default function PropertyForm({
             onChange={(e) => set("propertyType", e.target.value)}
           >
             {currentTypes.map((t) => (
-              <option key={t} value={t}>
+              <option key={t} value={t} className="bg-[#0b120f] text-white py-1">
                 {t}
               </option>
             ))}
@@ -402,8 +402,8 @@ export default function PropertyForm({
             value={form.status}
             onChange={(e) => set("status", e.target.value)}
           >
-            <option value="sale">For Sale / Acquisition</option>
-            <option value="rent">For Lease / Rent</option>
+            <option value="sale" className="bg-[#0b120f] text-white">For Sale / Acquisition</option>
+            <option value="rent" className="bg-[#0b120f] text-white">For Lease / Rent</option>
           </select>
         </div>
 
@@ -427,10 +427,10 @@ export default function PropertyForm({
               value={form.landAreaUnit}
               onChange={(e) => set("landAreaUnit", e.target.value)}
             >
-              <option value="acres">Acres</option>
-              <option value="sq ft">Sq Ft</option>
-              <option value="hectares">Hectares</option>
-              <option value="sq m">Sq Metres</option>
+              <option value="acres" className="bg-[#0b120f] text-white">Acres</option>
+              <option value="sq ft" className="bg-[#0b120f] text-white">Sq Ft</option>
+              <option value="hectares" className="bg-[#0b120f] text-white">Hectares</option>
+              <option value="sq m" className="bg-[#0b120f] text-white">Sq Metres</option>
             </select>
           </div>
         </div>

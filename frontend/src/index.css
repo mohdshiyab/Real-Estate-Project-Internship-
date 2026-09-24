@@ -42,6 +42,17 @@
            placeholder-white/40 focus:outline-none focus:border-gold/60
            focus:ring-2 focus:ring-gold/20 transition;
   }
+  select.input-luxe,
+  .input-luxe option,
+  select option {
+    background-color: #0b120f;
+    color: #ffffff;
+  }
+  select optgroup {
+    background-color: #0b120f;
+    color: #c9a44c;
+    font-weight: 600;
+  }
   .label-luxe { @apply block text-sm uppercase tracking-[0.18em] text-gold/80 mb-2; }
   .section { @apply max-w-7xl mx-auto px-5 sm:px-8 lg:px-12; }
   .gold-text { @apply bg-gold-gradient bg-clip-text text-transparent; }
